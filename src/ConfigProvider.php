@@ -23,7 +23,7 @@ class ConfigProvider
                 [
                     'id' => 'config',
                     'description' => 'The config of mongodb client.',
-                    'source' => __DIR__ . '/Publish/mongodb.php',
+                    'source' => __DIR__ . '/publish/mongodb.php',
                     'destination' => BASE_PATH . '/config/autoload/mongodb.php',
                 ],
             ],
