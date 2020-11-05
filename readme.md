@@ -34,7 +34,7 @@ return [
 # 使用案例
 
 使用注解，自动加载 
-**\Hyperf\Mongodb\MongoDb** 
+**\GiocoPlus\Mongodb\MongoDb** 
 ```php
 /**
  * @Inject()
