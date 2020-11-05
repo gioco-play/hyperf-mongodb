@@ -2,6 +2,8 @@
 
 ```
 composer require gioco-plus/hyperf-mongodb
+
+php bin/hyperf.php vendor:publish "gioco-plus/hyperf-mongodb" 
 ```
 
 ## config 
