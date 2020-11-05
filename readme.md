@@ -1,7 +1,7 @@
 # hyperf mongodb pool
 
 ```
-composer require yumufeng/hyperf-mongodb
+composer require gioco-plus/hyperf-mongodb
 ```
 
 ## config 
