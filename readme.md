@@ -6,6 +6,36 @@ composer require gioco-plus/hyperf-mongodb
 php bin/hyperf.php vendor:publish "gioco-plus/hyperf-mongodb" 
 ```
 
+# 動態切換連結池
+```php
+    /**
+     * @Inject
+     * @var ConfigInterface
+     */
+    protected $config;
+
+
+    /**
+     * @Inject()
+     * @var MongoDb
+     */
+    protected $mongoDbClient;
+
+
+
+    
+    # 使用方式
+    $config =  mongodb_pool_config('192.168.30.41', 'ezadmin_yb', 27017, 'beta-db'); # 建立連結資訊
+    $this->config->set("mongodb.dbYB", $config); # 前綴 mongodb.
+
+    $this->mongoDbClient->setPool("dbYB")->insert("hyperf_test", [
+        'aaa'=>'a',
+        'bbb'=>'b',
+        'ccc'=>'c'
+    ]);
+
+```
+
 ## config 
 在/config/autoload目录里面创建文件 mongodb.php
 添加以下内容
