@@ -2,7 +2,6 @@
 
 namespace GiocoPlus\Mongodb;
 
-use GiocoPlus\Mongodb\MongoDb;
 
 class ConfigProvider
 {
@@ -10,7 +9,7 @@ class ConfigProvider
     {
         return [
             'dependencies' => [
-                MongoDb::class => MongoDb::class,
+                MongoDb::class => \GiocoPlus\Mongodb\MongoDb::class,
             ],
             'commands' => [
             ],

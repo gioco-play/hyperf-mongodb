@@ -8,7 +8,7 @@ use Hyperf\Utils\Context;
 
 /**
  * Class MongoDb
- * @package Hyperf\Mongodb
+ * @package GiocoPlus\MongoDb
  */
 class MongoDb
 {
@@ -224,6 +224,17 @@ class MongoDb
         } catch (\Exception $e) {
             throw new MongoDBException($e->getFile() . $e->getLine() . $e->getMessage());
         }
+    }
+
+    /**
+     * 選擇連結池
+     *
+     * @param string $poolName
+     * @return $this
+     */
+    public function setPool(string $poolName): MongoDb {
+        $this->poolName = $poolName;
+        return $this;
     }
 
     private function getConnection()
