@@ -20,7 +20,7 @@ if (!function_exists('mongodb_pool_config')) {
      * @return array
      */
     function mongodb_pool_config(string $host, string $dbName, int $port = 27017, string $replica = 'rs0',
-                                 int $maxConn = 100, float $connTimeout = 10, float $maxIdelTime = 60,
+                                 int $maxConn = 100, float $connTimeout = 10, float $maxIdleTime = 60,
                                  string $username = '', string $password = '', string $authMechanism = 'SCRAM-SHA-256'): array {
         return [
             'username' => $username,
@@ -36,7 +36,7 @@ if (!function_exists('mongodb_pool_config')) {
                 'connect_timeout' => $connTimeout,
                 'wait_timeout' => 3.0,
                 'heartbeat' => -1,
-                'max_idle_time' => $maxIdelTime,
+                'max_idle_time' => $maxIdleTime,
             ],
         ];
     }
