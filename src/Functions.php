@@ -6,16 +6,16 @@ use GiocoPlus\Mongodb\MongoDbConst;
 
 if (!function_exists('mongodb_pool_config')) {
     /**
-     *
      * MongoDb 連結池
      *
      * @param string $host
      * @param string $dbName
-     * @param int $port
+     * @param integer $port
      * @param string $replica
-     * @param int $maxConn
-     * @param float|int $connTimeout
-     * @param float|int $maxIdelTime
+     * @param string $readPreference
+     * @param integer $maxConn
+     * @param float $connTimeout
+     * @param float $maxIdleTime
      * @param string $username
      * @param string $password
      * @param string $authMechanism
