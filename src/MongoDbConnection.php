@@ -81,10 +81,15 @@ class MongoDbConnection extends Connection implements ConnectionInterface
                 );
             }
             $urlOptions = [];
-            //数据集
+            // 数据集
             $replica = isset($this->config['replica']) ? $this->config['replica'] : null;
             if ($replica) {
                 $urlOptions['replicaSet'] = $replica;
+            }
+            // 偏好讀取
+            $readPreference = isset($this->config['readPreference']) ? $this->config['readPreference'] : null;
+            if ($readPreference) {
+                $urlOptions['readPreference'] = $readPreference;
             }
             $this->connection = new Manager($uri, $urlOptions);
         } catch (InvalidArgumentException $e) {

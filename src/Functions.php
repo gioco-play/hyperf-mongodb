@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use GiocoPlus\Mongodb\MongoDbConst;
+
 if (!function_exists('mongodb_pool_config')) {
     /**
      *
@@ -19,7 +21,7 @@ if (!function_exists('mongodb_pool_config')) {
      * @param string $authMechanism
      * @return array
      */
-    function mongodb_pool_config(string $host, string $dbName, int $port = 27017, string $replica = 'rs0',
+    function mongodb_pool_config(string $host, string $dbName, int $port = 27017, string $replica = 'rs0', string $readPreference = MongoDbConst::ReadPrefPrimary,
                                  int $maxConn = 100, float $connTimeout = 10, float $maxIdleTime = 60,
                                  string $username = '', string $password = '', string $authMechanism = 'SCRAM-SHA-256'): array {
         return [
@@ -30,6 +32,7 @@ if (!function_exists('mongodb_pool_config')) {
             'db' => $dbName,
             'authMechanism' => $authMechanism,
             'replica' => $replica,
+            'readPreference' => $readPreference,
             'pool' => [
                 'min_connections' => 1,
                 'max_connections' => $maxConn,
@@ -37,7 +40,7 @@ if (!function_exists('mongodb_pool_config')) {
                 'wait_timeout' => 3.0,
                 'heartbeat' => -1,
                 'max_idle_time' => $maxIdleTime,
-            ],
+            ]
         ];
     }
 
