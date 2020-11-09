@@ -10,6 +10,7 @@ return [
         'authMechanism' => 'SCRAM-SHA-256',
         //设置复制集,没有不设置
         'replica' => 'rs0',
+        'readPreference' => 'primary',
         'pool' => [
             'min_connections' => 1,
             'max_connections' => 100,
