@@ -111,6 +111,16 @@ $where = ['account'=>'1112313423'];
 $result = $this->$mongoDbClient->fetchAll('fans', $where);
 ```
 
+```php
+$result = $this->mongoDbClient->fetchAll('fans',
+            [
+                'id' => [
+                    '$in' => ['a', 'b', 'c']
+                ]
+            ]
+        );
+```
+
 ### 分页查询
 ```php
 $list = $this->$mongoDbClient->fetchPagination('article', 10, 0, ['author' => $author]);
