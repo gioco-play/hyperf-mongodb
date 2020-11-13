@@ -112,10 +112,10 @@ $result = $this->$mongoDbClient->fetchAll('fans', $where);
 ```
 
 ```php
-$result = $this->mongoDbClient->fetchAll('menus',
+$result = $this->mongoDbClient->fetchAll('fans',
             [
                 'id' => [
-                    '$in' => $menu_ids
+                    '$in' => ['a', 'b', 'c']
                 ]
             ], [
                 'sort' => ['sort'=>1]
