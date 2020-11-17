@@ -19,7 +19,7 @@ php bin/hyperf.php vendor:publish "gioco-plus/hyperf-mongodb"
      * @Inject()
      * @var MongoDb
      */
-    protected mongoDbClient;
+    protected $mongoDbClient;
 
 
     
