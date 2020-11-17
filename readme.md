@@ -19,7 +19,7 @@ php bin/hyperf.php vendor:publish "gioco-plus/hyperf-mongodb"
      * @Inject()
      * @var MongoDb
      */
-    protected $mongoDbClient;
+    protected mongoDbClient;
 
 
     
@@ -86,7 +86,7 @@ $insert = [
             'account' => '',
             'password' => ''
 ];
-$this->$mongoDbClient->insert('fans',$insert);
+$this->mongoDbClient->insert('fans',$insert);
 ```
 
 批量添加
@@ -101,14 +101,14 @@ $insert = [
                 'password' => ''
             ]
 ];
-$this->$mongoDbClient->insertAll('fans',$insert);
+$this->mongoDbClient->insertAll('fans',$insert);
 ```
 
 ### 查询
 
 ```php
 $where = ['account'=>'1112313423'];
-$result = $this->$mongoDbClient->fetchAll('fans', $where);
+$result = $this->mongoDbClient->fetchAll('fans', $where);
 ```
 
 ```php
@@ -125,7 +125,7 @@ $result = $this->mongoDbClient->fetchAll('fans',
 
 ### 分页查询
 ```php
-$list = $this->$mongoDbClient->fetchPagination('article', 10, 0, ['author' => $author]);
+$list = $this->mongoDbClient->fetchPagination('article', 10, 0, ['author' => $author]);
 ```
 
 ### 更新
@@ -133,22 +133,22 @@ $list = $this->$mongoDbClient->fetchPagination('article', 10, 0, ['author' => $a
 $where = ['account'=>'1112313423'];
 $updateData = [];
 
-$this->$mongoDbClient->updateColumn('fans', $where,$updateData); // 只更新数据满足$where的行的列信息中在$newObject中出现过的字段
-$this->$mongoDbClient->updateRow('fans',$where,$updateData);// 更新数据满足$where的行的信息成$newObject
+$this->mongoDbClient->updateColumn('fans', $where,$updateData); // 只更新数据满足$where的行的列信息中在$newObject中出现过的字段
+$this->mongoDbClient->updateRow('fans',$where,$updateData);// 更新数据满足$where的行的信息成$newObject
 ```
 ### 删除
 
 ```php
 $where = ['account'=>'1112313423'];
 $all = true; // 为false只删除匹配的一条，true删除多条
-$this->$mongoDbClient->delete('fans',$where,$all);
+$this->mongoDbClient->delete('fans',$where,$all);
 ```
 
 ### count统计
 
 ```php
 $filter = ['isGroup' => "0", 'wechat' => '15584044700'];
-$count = $this->$mongoDbClient->count('fans', $filter);
+$count = $this->mongoDbClient->count('fans', $filter);
 ```
 
 
@@ -188,5 +188,5 @@ $pipeline= [
             ]
 ];
 
-$count = $this->$mongoDbClient->command('fans', $pipeline);
+$count = $this->mongoDbClient->command('fans', $pipeline);
 ```
