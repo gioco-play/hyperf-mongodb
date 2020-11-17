@@ -118,6 +118,27 @@ class MongoDb
     }
 
     /**
+     * 数据 插入/更新 数据库
+     *
+     * @param $namespace
+     * @param array $data
+     * @return bool|mixed
+     * @throws MongoDBException
+     */
+    public function insertOrUpdate($namespace, array $filter, array $data = [])
+    {
+        try {
+            /**
+             * @var $collection MongoDBConnection
+             */
+            $collection = $this->getConnection();
+            return $collection->insertOrUpdate($namespace, $filter, $data);
+        } catch (\Exception $e) {
+            throw new MongoDBException($e->getFile() . $e->getLine() . $e->getMessage());
+        }
+    }
+
+    /**
      * 更新数据满足$filter的行的信息成$newObject
      *
      * @param $namespace

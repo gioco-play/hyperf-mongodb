@@ -229,6 +229,38 @@ class MongoDbConnection extends Connection implements ConnectionInterface
     }
 
     /**
+     * 数据插入/更新
+     * http://php.net/manual/zh/mongodb-driver-bulkwrite.insert.php
+     * $data1 = ['title' => 'one'];
+     * $data2 = ['_id' => 'custom ID', 'title' => 'two'];
+     * $data3 = ['_id' => new MongoDB\BSON\ObjectId, 'title' => 'three'];
+     *
+     * @param string $namespace
+     * @param array $data
+     * @return bool|string
+     * @throws MongoDBException
+     */
+    public function insertOrUpdate(string $namespace, array $filter = [], array $data = [])
+    {
+        try {
+            $bulk = new BulkWrite();
+            $bulk->update(
+                $filter,
+                ['$set' => $data],
+                ['upsert' => true]
+            );
+            $written = new WriteConcern(WriteConcern::MAJORITY, 1000);
+            $this->connection->executeBulkWrite($this->config['db'] . '.' . $namespace, $bulk, $written);
+        } catch (\Exception $e) {
+            $insertId = false;
+            throw new MongoDBException($e->getFile() . $e->getLine() . $e->getMessage());
+        } finally {
+            $this->pool->release($this);
+            return $insertId;
+        }
+    }
+
+    /**
      * 批量数据插入
      * http://php.net/manual/zh/mongodb-driver-bulkwrite.insert.php
      * $data = [
