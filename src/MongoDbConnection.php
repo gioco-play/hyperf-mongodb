@@ -236,6 +236,7 @@ class MongoDbConnection extends Connection implements ConnectionInterface
      * $data3 = ['_id' => new MongoDB\BSON\ObjectId, 'title' => 'three'];
      *
      * @param string $namespace
+     * @param array $filter
      * @param array $data
      * @return bool|string
      * @throws MongoDBException

@@ -121,6 +121,7 @@ class MongoDb
      * 数据 插入/更新 数据库
      *
      * @param $namespace
+     * @param array $filter
      * @param array $data
      * @return bool|mixed
      * @throws MongoDBException
