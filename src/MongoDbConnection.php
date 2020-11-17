@@ -251,7 +251,8 @@ class MongoDbConnection extends Connection implements ConnectionInterface
                 ['upsert' => true]
             );
             $written = new WriteConcern(WriteConcern::MAJORITY, 1000);
-            $this->connection->executeBulkWrite($this->config['db'] . '.' . $namespace, $bulk, $written);
+            $result = $this->connection->executeBulkWrite($this->config['db'] . '.' . $namespace, $bulk, $written);
+            $insertId = $result->getUpsertedIds();
         } catch (\Exception $e) {
             $insertId = false;
             throw new MongoDBException($e->getFile() . $e->getLine() . $e->getMessage());
