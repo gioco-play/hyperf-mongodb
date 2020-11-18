@@ -24,7 +24,7 @@ php bin/hyperf.php vendor:publish "gioco-plus/hyperf-mongodb"
 
     
     # 使用方式
-    $config =  mongodb_pool_config('192.168.30.41', 'ezadmin_yb', 27017, 'beta-db'); # 建立連結資訊
+    $config =  mongodb_pool_config('192.168.30.xx', 'ezadmin_yb', 27017, 'beta-db'); # 建立連結資訊
     $this->config->set("mongodb.dbYB", $config); # 前綴 mongodb.
 
     $this->mongoDbClient->setPool("dbYB")->insert("hyperf_test", [
