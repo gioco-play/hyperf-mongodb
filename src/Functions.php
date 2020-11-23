@@ -8,9 +8,9 @@ if (!function_exists('micro_timestamp')) {
     /**
      * 時間戳
      *
-     * @return void
+     * @return float
      */
-    function micro_timestamp() {
+    function micro_timestamp(): float {
         return round(microtime(true) * 1000);
     }
 }
