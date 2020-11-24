@@ -15,10 +15,10 @@
   },
   "autoload": {
     "files": [
-      "src/Functions.php"
+      "./src/Functions.php"
     ],
     "psr-4": {
-      "GiocoPlus\\Mongodb\\": "src"
+      "GiocoPlus\\Mongodb\\": "src/"
     }
   },
   "extra": {
