@@ -122,7 +122,7 @@ class MongoDbConnection extends Connection implements ConnectionInterface
      */
     public function executeQueryAll(string $namespace, array $filter = [], array $options = [])
     {
-        if (!empty($filter['_id']) && !($filter['_id'] instanceof ObjectId)) {
+        if (!empty($filter['_id']) && !($filter['_id'] instanceof ObjectId) && ! is_array($filter['_id'])) {
             $filter['_id'] = new ObjectId($filter['_id']);
         }
         // 查询数据
