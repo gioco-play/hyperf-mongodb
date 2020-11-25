@@ -121,6 +121,20 @@ $result = $this->mongoDbClient->fetchAll('fans',
                 'sort' => ['sort'=>1]
             ]
         );
+# $or 的使用方式
+$inputs['filter']['$or'] = [
+    [
+        '_id' => [
+            '$in' => $bull_ids
+        ]
+    ],
+    [
+        'for_all' => [
+            '$eq' => true
+        ]
+    ]
+];
+$result = $this->mongoDbClient->fetchAll('fans', $inputs['filter']);
 ```
 
 ### 分页查询
