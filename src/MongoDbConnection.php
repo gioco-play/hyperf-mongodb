@@ -159,7 +159,7 @@ class MongoDbConnection extends Connection implements ConnectionInterface
      */
     public function execQueryPagination(string $namespace, int $limit = 10, int $currentPage = 0, array $filter = [], array $options = [])
     {
-        if (!empty($filter['_id']) && !($filter['_id'] instanceof ObjectId)) {
+        if (!empty($filter['_id']) && !($filter['_id'] instanceof ObjectId) && ! is_array($filter['_id'])) {
             $filter['_id'] = new ObjectId($filter['_id']);
         }
         // 查询数据
