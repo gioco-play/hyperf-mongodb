@@ -28,6 +28,15 @@ class MongoDb
     }
 
     /**
+     * 取得連結實體
+     * @throws MongoDBException
+     * @return MongoDbConnection
+     */
+    public function db() : MongoDbConnection {
+        return $this->getConnection();
+    }
+
+    /**
      * 返回满足filer的全部数据
      *
      * @param string $namespace
