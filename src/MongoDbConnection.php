@@ -308,7 +308,7 @@ class MongoDbConnection extends Connection implements ConnectionInterface
      * @return bool
      * @throws MongoDBException
      */
-    public function updateRow(string $namespace, array $filter = [], array $newObj = []): bool
+    public function updateRow(string $namespace, array $filter = [], array $newObj = [], $updateOpt = '$set' ): bool
     {
         try {
             if (!empty($filter['_id']) && !($filter['_id'] instanceof ObjectId)) {
@@ -318,7 +318,7 @@ class MongoDbConnection extends Connection implements ConnectionInterface
             $bulk = new BulkWrite;
             $bulk->update(
                 $filter,
-                ['$set' => $newObj],
+                [$updateOpt => $newObj],
                 ['multi' => true, 'upsert' => false]
             );
             $written = new WriteConcern(WriteConcern::MAJORITY, 1000);
@@ -349,7 +349,7 @@ class MongoDbConnection extends Connection implements ConnectionInterface
      * @return bool
      * @throws MongoDBException
      */
-    public function updateColumn(string $namespace, array $filter = [], array $newObj = []): bool
+    public function updateColumn(string $namespace, array $filter = [], array $newObj = [], $updateOpt = '$set' ): bool
     {
         try {
             if (!empty($filter['_id']) && !($filter['_id'] instanceof ObjectId)) {
@@ -359,7 +359,7 @@ class MongoDbConnection extends Connection implements ConnectionInterface
             $bulk = new BulkWrite;
             $bulk->update(
                 $filter,
-                ['$set' => $newObj],
+                [$updateOpt => $newObj],
                 ['multi' => false, 'upsert' => false]
             );
             $written = new WriteConcern(WriteConcern::MAJORITY, 1000);

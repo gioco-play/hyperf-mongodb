@@ -28,15 +28,6 @@ class MongoDb
     }
 
     /**
-     * 取得連結實體
-     * @throws MongoDBException
-     * @return MongoDbConnection
-     */
-    public function db() : MongoDbConnection {
-        return $this->getConnection();
-    }
-
-    /**
      * 返回满足filer的全部数据
      *
      * @param string $namespace
@@ -157,14 +148,14 @@ class MongoDb
      * @return bool
      * @throws MongoDBException
      */
-    public function updateRow($namespace, array $filter = [], array $newObj = []): bool
+    public function updateRow($namespace, array $filter = [], array $newObj = [], $updateOpt = '$set' ): bool
     {
         try {
             /**
              * @var $collection MongoDBConnection
              */
             $collection = $this->getConnection();
-            return $collection->updateRow($namespace, $filter, $newObj);
+            return $collection->updateRow($namespace, $filter, $newObj, $updateOpt);
         } catch (\Exception $e) {
             throw new MongoDBException($e->getFile() . $e->getLine() . $e->getMessage());
         }
@@ -179,14 +170,14 @@ class MongoDb
      * @return bool
      * @throws MongoDBException
      */
-    public function updateColumn($namespace, array $filter = [], array $newObj = []): bool
+    public function updateColumn($namespace, array $filter = [], array $newObj = [], $updateOpt = '$set' ): bool
     {
         try {
             /**
              * @var $collection MongoDBConnection
              */
             $collection = $this->getConnection();
-            return $collection->updateColumn($namespace, $filter, $newObj);
+            return $collection->updateColumn($namespace, $filter, $newObj, $updateOpt);
         } catch (\Exception $e) {
             throw new MongoDBException($e->getFile() . $e->getLine() . $e->getMessage());
         }
