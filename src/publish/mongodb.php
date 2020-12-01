@@ -9,7 +9,8 @@ return [
         'db' => env('MONGODB_DB', 'test'),
         'options'  => [
             'database' => 'admin',
-            'authMechanism' => env('MONGODB_AuthMechanism', 'SCRAM-SHA-256'),
+            // 需要配置 username
+            // 'authMechanism' => env('MONGODB_AuthMechanism', 'SCRAM-SHA-256'), 
             //设置复制集,没有不设置
             'replica' => env('MONGODB_Replica', 'rs0'),
             'readPreference' => env('MONGODB_ReadPreference', 'primary'),
