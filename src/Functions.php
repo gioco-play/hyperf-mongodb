@@ -42,20 +42,20 @@ if (!function_exists('mongodb_pool_config')) {
       *     'readPreference' => $readPreference,
       * ],
       */
-    function mongodb_pool_config($host, string $dbName, int $port = 27017, string $replica = 'rs0',
-                                 int $maxConn = 100, float $connTimeout = 10, float $maxIdleTime = 60,
-                                 string $username = '', string $password = '', array $option = [
+    function mongodb_pool_config($host, string $dbName, int $port = 27017, array $options = [
                                     'database' => 'admin',
                                     'replica' => 'rs0',
                                     'readPreference' => MongoDbConst::ReadPrefPrimary
-                                 ]): array {
+                                ],
+                                string $username = '', string $password = '',
+                                int $maxConn = 100, float $connTimeout = 10, float $maxIdleTime = 60 ): array {
         return [
             'username' => $username,
             'password' => $password,
             'host' => explode(';', $host),
             'port' => $port,
             'db' => $dbName,
-            'options'  => $option,
+            'options'  => $options,
             'pool' => [
                 'min_connections' => 1,
                 'max_connections' => $maxConn,
