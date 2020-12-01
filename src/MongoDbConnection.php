@@ -60,38 +60,8 @@ class MongoDbConnection extends Connection implements ConnectionInterface
             /**
              * http://php.net/manual/zh/mongodb-driver-manager.construct.php
              */
-
-            $username = $this->config['username'];
-            $password = $this->config['password'];
-            if (!empty($username) && !empty($password)) {
-                $uri = sprintf(
-                    'mongodb://%s:%s@%s:%d/%s',
-                    $username,
-                    $password,
-                    $this->config['host'],
-                    $this->config['port'],
-                    $this->config['db']
-                );
-            } else {
-                $uri = sprintf(
-                    'mongodb://%s:%d/%s',
-                    $this->config['host'],
-                    $this->config['port'],
-                    $this->config['db']
-                );
-            }
-            $urlOptions = [];
-            // 数据集
-            $replica = isset($this->config['replica']) ? $this->config['replica'] : null;
-            if ($replica) {
-                $urlOptions['replicaSet'] = $replica;
-            }
-            // 偏好讀取
-            $readPreference = isset($this->config['readPreference']) ? $this->config['readPreference'] : null;
-            if ($readPreference) {
-                $urlOptions['readPreference'] = $readPreference;
-            }
-            $this->connection = new Manager($uri, $urlOptions);
+            $configuration = new MongodbConfiguration($this->config);
+            $this->connection = new Manager($configuration->getDsn(), $configuration->getOptions());
         } catch (InvalidArgumentException $e) {
             throw MongoDBException::managerError('mongodb 连接参数错误:' . $e->getMessage());
         } catch (RuntimeException $e) {

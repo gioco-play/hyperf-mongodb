@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GiocoPlus\Mongodb\Exception;
 
 class MongoDBException extends \Exception

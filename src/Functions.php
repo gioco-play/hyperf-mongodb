@@ -19,7 +19,7 @@ if (!function_exists('mongodb_pool_config')) {
     /**
      * MongoDb 連結池
      *
-     * @param string $host
+     * @param $host
      * @param string $dbName
      * @param integer $port
      * @param string $replica
@@ -32,18 +32,22 @@ if (!function_exists('mongodb_pool_config')) {
      * @param string $authMechanism
      * @return array
      */
-    function mongodb_pool_config(string $host, string $dbName, int $port = 27017, string $replica = 'rs0', string $readPreference = MongoDbConst::ReadPrefPrimary,
+    function mongodb_pool_config($host, string $dbName, int $port = 27017, string $replica = 'rs0', string $readPreference = MongoDbConst::ReadPrefPrimary,
                                  int $maxConn = 100, float $connTimeout = 10, float $maxIdleTime = 60,
                                  string $username = '', string $password = '', string $authMechanism = 'SCRAM-SHA-256'): array {
         return [
             'username' => $username,
             'password' => $password,
-            'host' => $host,
+            'host' => explode(';', $host),
             'port' => $port,
             'db' => $dbName,
-            'authMechanism' => $authMechanism,
-            'replica' => $replica,
-            'readPreference' => $readPreference,
+            'options'  => [
+                'database' => 'admin',
+                'authMechanism' => $authMechanism,
+                //设置复制集,没有不设置
+                'replica' => $replica,
+                'readPreference' => $readPreference,
+            ],
             'pool' => [
                 'min_connections' => 1,
                 'max_connections' => $maxConn,
