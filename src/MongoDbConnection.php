@@ -433,6 +433,24 @@ class MongoDbConnection extends Connection implements ConnectionInterface
     }
 
     /**
+     * 直接執行command
+     *
+     * @param array $cmd
+     * @return bool
+     * @throws MongoDBException
+     */
+    public function excute(array $cmd = [])
+    {
+        try {
+            $command = new Command($cmd);
+            $this->connection->executeCommand($this->config['db'], $command);
+            return true;
+        } catch (\Throwable $e) {
+            return $this->catchMongoException($e);
+        }
+    }
+
+    /**
      * 判断当前的数据库连接是否已经超时
      *
      * @return bool
