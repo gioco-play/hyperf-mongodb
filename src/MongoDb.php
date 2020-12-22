@@ -249,6 +249,27 @@ class MongoDb
     }
 
     /**
+     * 執行command
+     *
+     * @param array $cmd
+     * @return bool
+     * @throws MongoDBException
+     */
+    public function excute(array $cmd = [])
+    {
+        try {
+            /**
+             * @var $collection MongoDBConnection
+             */
+            $collection = $this->getConnection();
+            return $collection->excute($cmd);
+        } catch (\Exception $e) {
+            throw new MongoDBException($e->getFile() . $e->getLine() . $e->getMessage());
+        }
+
+    }
+
+    /**
      * 選擇連結池
      *
      * @param string $poolName
