@@ -475,6 +475,7 @@ class MongoDbConnection extends Connection implements ConnectionInterface
      */
     private function catchMongoException(\Throwable $e)
     {
+        var_dump($e->getMessage());
         switch ($e) {
             case ($e instanceof InvalidArgumentException):
                 {
@@ -494,6 +495,7 @@ class MongoDbConnection extends Connection implements ConnectionInterface
                         try {
                             $this->reconnect();
                         } catch (\Exception $e) {
+                            var_dump($e->getMessage());
                             continue;
                         }
                         break;
