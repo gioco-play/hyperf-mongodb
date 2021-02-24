@@ -184,6 +184,28 @@ class MongoDb
     }
 
     /**
+     * 替換满足$filter的行的列信息中在$newObject中出现过的字段
+     *
+     * @param $namespace
+     * @param array $filter
+     * @param array $newObj
+     * @return bool
+     * @throws MongoDBException
+     */
+    public function replace($namespace, array $filter = [], array $newObj = []): bool
+    {
+        try {
+            /**
+             * @var $collection MongoDBConnection
+             */
+            $collection = $this->getConnection();
+            return $collection->updateColumn($namespace, $filter, $newObj);
+        } catch (\Exception $e) {
+            throw new MongoDBException($e->getFile() . $e->getLine() . $e->getMessage());
+        }
+    }
+
+    /**
      * 删除满足条件的数据，默认只删除匹配条件的第一条记录，如果要删除多条$limit=true
      *
      * @param string $namespace
