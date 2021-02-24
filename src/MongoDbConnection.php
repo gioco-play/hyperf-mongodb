@@ -443,8 +443,7 @@ class MongoDbConnection extends Connection implements ConnectionInterface
     {
         try {
             $command = new Command($cmd);
-            $this->connection->executeCommand($this->config['db'], $command);
-            return true;
+            return $this->connection->executeCommand($this->config['db'], $command);
         } catch (\Throwable $e) {
             return $this->catchMongoException($e);
         }
