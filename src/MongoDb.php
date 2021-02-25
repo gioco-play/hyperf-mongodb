@@ -192,19 +192,21 @@ class MongoDb
      * @return bool
      * @throws MongoDBException
      */
-    public function replace($namespace, array $filter = [], array $newObj = []): bool
+    public function replaceOne($namespace, array $filter = [], array $newObj = [], array $opts = ['upsert' => false]): bool
     {
         try {
             /**
              * @var $collection MongoDBConnection
              */
             $collection = $this->getConnection();
-            return $collection->updateColumn($namespace, $filter, $newObj);
+            $opts += [
+                'multi' => false,
+            ];
+            return $collection->replace($namespace, $filter, $newObj, $opts);
         } catch (\Exception $e) {
             throw new MongoDBException($e->getFile() . $e->getLine() . $e->getMessage());
         }
     }
-
     /**
      * 删除满足条件的数据，默认只删除匹配条件的第一条记录，如果要删除多条$limit=true
      *
