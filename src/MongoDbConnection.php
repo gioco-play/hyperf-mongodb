@@ -111,7 +111,7 @@ class MongoDbConnection extends Connection implements ConnectionInterface
         } catch (Exception $e) {
             throw new MongoDBException($e->getFile() . $e->getLine() . $e->getMessage());
         } finally {
-            $this->pool->release($this);
+            $this->release();
             return $result;
         }
     }
@@ -165,7 +165,7 @@ class MongoDbConnection extends Connection implements ConnectionInterface
         } catch (Exception $e) {
             throw new MongoDBException($e->getFile() . $e->getLine() . $e->getMessage());
         } finally {
-            $this->pool->release($this);
+            $this->release();
             return $result;
         }
     }
@@ -193,7 +193,7 @@ class MongoDbConnection extends Connection implements ConnectionInterface
             $insertId = false;
             throw new MongoDBException($e->getFile() . $e->getLine() . $e->getMessage());
         } finally {
-            $this->pool->release($this);
+            $this->release();
             return $insertId;
         }
     }
@@ -227,7 +227,7 @@ class MongoDbConnection extends Connection implements ConnectionInterface
             $insertId = false;
             throw new MongoDBException($e->getFile() . $e->getLine() . $e->getMessage());
         } finally {
-            $this->pool->release($this);
+            $this->release();
             return $insertId;
         }
     }
@@ -258,7 +258,7 @@ class MongoDbConnection extends Connection implements ConnectionInterface
             $insertId = false;
             throw new MongoDBException($e->getFile() . $e->getLine() . $e->getMessage());
         } finally {
-            $this->pool->release($this);
+            $this->release();
             return $insertId;
         }
     }
@@ -299,7 +299,7 @@ class MongoDbConnection extends Connection implements ConnectionInterface
             $update = false;
             throw new MongoDBException($e->getFile() . $e->getLine() . $e->getMessage());
         } finally {
-            $this->pool->release($this);
+            $this->release();
             return $update;
         }
     }
@@ -370,7 +370,7 @@ class MongoDbConnection extends Connection implements ConnectionInterface
             $delete = false;
             throw new MongoDBException($e->getFile() . $e->getLine() . $e->getMessage());
         } finally {
-            $this->pool->release($this);
+            $this->release();
             return $delete;
         }
     }
@@ -398,7 +398,7 @@ class MongoDbConnection extends Connection implements ConnectionInterface
             $count = false;
             throw new MongoDBException($e->getFile() . $e->getLine() . $e->getMessage());
         } finally {
-            $this->pool->release($this);
+            $this->release();
             return $count;
         }
     }
@@ -427,7 +427,7 @@ class MongoDbConnection extends Connection implements ConnectionInterface
             $count = false;
             throw new MongoDBException($e->getFile() . $e->getLine() . $e->getMessage());
         } finally {
-            $this->pool->release($this);
+            $this->release();
             return $count;
         }
     }
@@ -474,7 +474,7 @@ class MongoDbConnection extends Connection implements ConnectionInterface
      */
     private function catchMongoException(\Throwable $e)
     {
-        var_dump($e->getMessage());
+        var_dump("Mongodb Debug :" . $e->getFile(). " : " . $e->getLine() . " : ".$e->getMessage());
         switch ($e) {
             case ($e instanceof InvalidArgumentException):
                 {
@@ -494,7 +494,6 @@ class MongoDbConnection extends Connection implements ConnectionInterface
                         try {
                             $this->reconnect();
                         } catch (\Exception $e) {
-                            var_dump($e->getMessage());
                             continue;
                         }
                         break;
