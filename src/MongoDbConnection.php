@@ -346,6 +346,43 @@ class MongoDbConnection extends Connection implements ConnectionInterface
     }
 
     /**
+     * 取代數據
+     *
+     * @param string $namespace
+     * @param array $filter
+     * @param array $newObj
+     * @param string $updateOpt
+     * @return bool
+     * @throws MongoDBException
+     */
+    public function replace(string $namespace, array $filter = [], array $newObj = [], array $opts = []): bool
+    {
+        try {
+            if (!empty($filter['_id']) && !($filter['_id'] instanceof ObjectId)) {
+                $filter['_id'] = new ObjectId($filter['_id']);
+            }
+
+            $bulk = new BulkWrite;
+            $bulk->update(
+                $filter,
+                $newObj,
+                $opts
+            );
+            $written = new WriteConcern(WriteConcern::MAJORITY, 1000);
+            $result = $this->connection->executeBulkWrite($this->config['db'] . '.' . $namespace, $bulk, $written);
+            $modifiedCount = $result->getModifiedCount();
+            $update = $modifiedCount == 1 ? true : false;
+        } catch (\Exception $e) {
+            $update = false;
+            throw new MongoDBException($e->getFile() . $e->getLine() . $e->getMessage());
+        } finally {
+            $this->release();
+            return $update;
+        }
+    }
+
+
+    /**
      * 删除数据
      *
      * @param string $namespace
