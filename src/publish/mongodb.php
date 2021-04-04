@@ -17,8 +17,8 @@ return [
             'connectTimeoutMS' => (int) env('MONGODB_connectTimeoutMS', 30)
         ],
         'pool' => [
-            'min_connections' => 1,
-            'max_connections' => 100,
+            'min_connections' => 3000,
+            'max_connections' => 3000,
             'connect_timeout' => 10.0,
             'wait_timeout' => 3.0,
             'heartbeat' => -1,
