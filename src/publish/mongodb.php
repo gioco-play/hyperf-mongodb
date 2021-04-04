@@ -14,7 +14,7 @@ return [
             //设置复制集,没有不设置
             'replica' => env('MONGODB_Replica', 'rs0'),
             'readPreference' => env('MONGODB_ReadPreference', 'primary'),
-            'connectTimeoutMS' => (int) env('MONGODB_connectTimeoutMS', 30)
+            // 'connectTimeoutMS' => (int) env('MONGODB_connectTimeoutMS', 30)
         ],
         'pool' => [
             'min_connections' => 3000,
