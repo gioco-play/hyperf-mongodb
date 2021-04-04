@@ -165,7 +165,7 @@ class MongoDbConnection extends Connection implements ConnectionInterface
         } catch (Exception $e) {
             throw new MongoDBException($e->getFile() . $e->getLine() . $e->getMessage());
         } finally {
-            $this->release();
+//             $this->release(); 這邊會造成多釋放pool
             return $result;
         }
     }
