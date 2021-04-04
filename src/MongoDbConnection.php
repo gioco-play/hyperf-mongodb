@@ -511,7 +511,6 @@ class MongoDbConnection extends Connection implements ConnectionInterface
      */
     private function catchMongoException(\Throwable $e)
     {
-        var_dump("Mongodb Debug :" . $e->getFile(). " : " . $e->getLine() . " : ".$e->getMessage());
         switch ($e) {
             case ($e instanceof InvalidArgumentException):
                 {
