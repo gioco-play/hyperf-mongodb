@@ -76,7 +76,7 @@ class MongoDbConnection extends Connection implements ConnectionInterface
      */
     public function close(): bool
     {
-        // TODO: Implement close() method.
+        unset($this->connection);
         return true;
     }
 
