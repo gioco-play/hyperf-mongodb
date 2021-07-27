@@ -77,10 +77,11 @@ class MongoDb
      * 批量插入
      * @param $namespace
      * @param array $data
+     * @param array $options
      * @return bool|string
      * @throws MongoDBException
      */
-    public function insertAll($namespace, array $data)
+    public function insertAll($namespace, array $data, array $options = [])
     {
         if (count($data) == count($data, 1)) {
             throw new  MongoDBException('data is can only be a two-dimensional array');
@@ -90,7 +91,7 @@ class MongoDb
              * @var $collection MongoDBConnection
              */
             $collection = $this->getConnection();
-            return $collection->insertAll($namespace, $data);
+            return $collection->insertAll($namespace, $data, $options);
         } catch (MongoDBException $e) {
             throw new MongoDBException($e->getFile() . $e->getLine() . $e->getMessage());
         }
@@ -101,17 +102,18 @@ class MongoDb
      *
      * @param $namespace
      * @param array $data
+     * @param array $options
      * @return bool|mixed
      * @throws MongoDBException
      */
-    public function insert($namespace, array $data = [])
+    public function insert($namespace, array $data = [], array $options = [])
     {
         try {
             /**
              * @var $collection MongoDBConnection
              */
             $collection = $this->getConnection();
-            return $collection->insert($namespace, $data);
+            return $collection->insert($namespace, $data, $options);
         } catch (\Exception $e) {
             throw new MongoDBException($e->getFile() . $e->getLine() . $e->getMessage());
         }
@@ -123,17 +125,18 @@ class MongoDb
      * @param $namespace
      * @param array $filter
      * @param array $data
+     * @param array $options
      * @return bool|mixed
      * @throws MongoDBException
      */
-    public function insertOrUpdate($namespace, array $filter, array $data = [])
+    public function insertOrUpdate($namespace, array $filter, array $data = [], array $options = [])
     {
         try {
             /**
              * @var $collection MongoDBConnection
              */
             $collection = $this->getConnection();
-            return $collection->insertOrUpdate($namespace, $filter, $data);
+            return $collection->insertOrUpdate($namespace, $filter, $data, $options);
         } catch (\Exception $e) {
             throw new MongoDBException($e->getFile() . $e->getLine() . $e->getMessage());
         }

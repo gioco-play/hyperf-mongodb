@@ -179,13 +179,14 @@ class MongoDbConnection extends Connection implements ConnectionInterface
      *
      * @param string $namespace
      * @param array $data
+     * @param array $options
      * @return bool|string
      * @throws MongoDBException
      */
-    public function insert(string $namespace, array $data = [])
+    public function insert(string $namespace, array $data = [], array $options = [])
     {
         try {
-            $bulk = new BulkWrite();
+            $bulk = new BulkWrite($options);
             $insertId = (string)$bulk->insert($data);
             $written = new WriteConcern(WriteConcern::MAJORITY, 1000);
             $this->connection->executeBulkWrite($this->config['db'] . '.' . $namespace, $bulk, $written);
@@ -208,13 +209,14 @@ class MongoDbConnection extends Connection implements ConnectionInterface
      * @param string $namespace
      * @param array $filter
      * @param array $data
+     * @param array $options
      * @return bool|string
      * @throws MongoDBException
      */
-    public function insertOrUpdate(string $namespace, array $filter = [], array $data = [])
+    public function insertOrUpdate(string $namespace, array $filter = [], array $data = [], array $options = [])
     {
         try {
-            $bulk = new BulkWrite();
+            $bulk = new BulkWrite($options);
             $bulk->update(
                 $filter,
                 ['$set' => $data],
@@ -242,13 +244,14 @@ class MongoDbConnection extends Connection implements ConnectionInterface
      * ];
      * @param string $namespace
      * @param array $data
+     * @param array $options
      * @return bool|string
      * @throws MongoDBException
      */
-    public function insertAll(string $namespace, array $data = [])
+    public function insertAll(string $namespace, array $data = [], array $options = [])
     {
         try {
-            $bulk = new BulkWrite();
+            $bulk = new BulkWrite($options);
             foreach ($data as $items) {
                 $insertId[] = (string)$bulk->insert($items);
             }
