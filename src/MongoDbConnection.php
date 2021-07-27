@@ -76,7 +76,7 @@ class MongoDbConnection extends Connection implements ConnectionInterface
      */
     public function close(): bool
     {
-        // TODO: Implement close() method.
+        unset($this->connection);
         return true;
     }
 
@@ -165,7 +165,7 @@ class MongoDbConnection extends Connection implements ConnectionInterface
         } catch (Exception $e) {
             throw new MongoDBException($e->getFile() . $e->getLine() . $e->getMessage());
         } finally {
-            $this->release();
+//             $this->release(); 這邊會造成多釋放pool
             return $result;
         }
     }
@@ -514,7 +514,6 @@ class MongoDbConnection extends Connection implements ConnectionInterface
      */
     private function catchMongoException(\Throwable $e)
     {
-        var_dump("Mongodb Debug :" . $e->getFile(). " : " . $e->getLine() . " : ".$e->getMessage());
         switch ($e) {
             case ($e instanceof InvalidArgumentException):
                 {
